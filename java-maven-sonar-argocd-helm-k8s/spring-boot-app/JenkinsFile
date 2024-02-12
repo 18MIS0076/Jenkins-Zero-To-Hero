@@ -10,7 +10,7 @@ pipeline {
     stage('Checkout') {
       steps {
         sh 'echo passed'
-        //git branch: 'main', url: 'https://github.com/jaggu14/Jenkins-Zero-To-Hero.git'
+        //git branch: 'main', url: 'https://github.com/18MIS0076/Jenkins-Zero-To-Hero'
       }
     }
     stage('Build and Test') {
@@ -20,7 +20,7 @@ pipeline {
         sh 'cd java-maven-sonar-argocd-helm-k8s/spring-boot-app && mvn clean package'
       }
     }
-    stage('Static Code Analysis') {
+   /* stage('Static Code Analysis') {
       environment {
         SONAR_URL = "http://20.39.224.131:9000"
       }
@@ -29,10 +29,10 @@ pipeline {
           sh 'cd java-maven-sonar-argocd-helm-k8s/spring-boot-app && mvn sonar:sonar -Dsonar.login=$SONAR_AUTH_TOKEN -Dsonar.host.url=${SONAR_URL}'
         }
       }
-    }
+    }*/
     stage('Build and Push Docker Image') {
       environment {
-        DOCKER_IMAGE = "jaggu2224/myrepo:${BUILD_NUMBER}"
+        DOCKER_IMAGE = "sarath0088/harness-demo:${BUILD_NUMBER}"
         // DOCKERFILE_LOCATION = "java-maven-sonar-argocd-helm-k8s/spring-boot-app/Dockerfile"
         REGISTRY_CREDENTIALS = credentials('docker-cred')
       }
@@ -46,7 +46,7 @@ pipeline {
         }
       }
     }
-    stage('Update Deployment File') {
+   /* stage('Update Deployment File') {
         environment {
             GIT_REPO_NAME = "Jenkins-Zero-To-Hero"
             GIT_USER_NAME = "jaggu14"
@@ -64,6 +64,6 @@ pipeline {
                 '''
             }
         }
-    }
+    }*/
   }
 }
